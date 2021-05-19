@@ -1,6 +1,10 @@
 
 Implementation of a simulation API for Mars and Moon terrain with a skid steering (Pathfinder) and 4WS (Moontamer) rover
 
+<p align="center">
+<img alt="moontamer" src="doc/moontamer.png" width="300">
+</p>
+
 
 if you face an error about four_wheel_steering_msgs after catkin_make, run
 
