@@ -1,0 +1,3 @@
+/CMakeLists.txt
+CATKIN_IGNORE
+init_params.yaml

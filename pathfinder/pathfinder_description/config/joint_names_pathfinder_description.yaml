@@ -1,0 +1,1 @@
+controller_joint_names: ['base_to_left', 'left_rocker_to_front_left', 'left_to_back_left', 'base_to_right', 'right_to_front_right', 'right_to_back_right', 'base_to_diff', 'diff_bar_to_left_rod', 'diff_bar_to_right_rod', ]

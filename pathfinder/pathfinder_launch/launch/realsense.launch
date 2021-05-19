@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find realsense2_camera)/launch/rs_multiple_devices.launch">
+        <arg name="serial_no_camera1" value="819312070616"/>
+        <arg name="serial_no_camera2" value="819612072421"/>
+        <arg name="camera1" value="front/realsense"/>
+        <arg name="camera2" value="back/realsense"/>
+        <arg name="tf_prefix_camera1" value="front_realsense"/>
+        <arg name="tf_prefix_camera2" value="back_realsense"/>
+    </include>
+</launch>

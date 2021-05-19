@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="front">
+        <node name="front_webcam" pkg="usb_cam" type="usb_cam_node">
+            <param name="camera_name" value="front_webcam"/>
+            <param name="video_device" value="/dev/v4l/by-id/usb-046d_HD_Pro_Webcam_C920_2FD45C6F-video-index0"/>
+            <param name="autofocus" value="false"/>
+            <param name="focus" value="17"/>
+            <param name="framerate" value="30"/>
+            <param name="image_width" value="320"/>
+            <param name="image_height" value="240"/>
+        </node>
+    </group>
+    <group ns="back">
+        <node name="back_webcam" pkg="usb_cam" type="usb_cam_node">
+            <param name="camera_name" value="front_webcam"/>
+            <param name="video_device" value="/dev/v4l/by-id/usb-046d_HD_Pro_Webcam_C920_316CFC4F-video-index0"/>
+            <param name="autofocus" value="false"/>
+            <param name="focus" value="17"/>
+            <param name="framerate" value="30"/>
+            <param name="image_width" value="320"/>
+            <param name="image_height" value="240"/>
+        </node>
+    </group>
+</launch>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+  <include
+      file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py --inorder $(find pathfinder_description)/urdf/pathfinder_simple_description.urdf.xacro" />
+
+  <node
+    name="tf_footprint_base"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 base_link base_footprint 40" />
+
+  <node
+    name="spawn_urdf"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-param robot_description -urdf -model pathfinder_simple_description"
+    output="screen" />
+
+  <node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" />
+
+  <group ns="front">
+    <include
+        file="$(find realsense_gazebo_plugin)/launch/depth_proc.launch" name="front_depth_proc" />
+    <node pkg="tf" type="static_transform_publisher" name="front_realsense_tf" args="0.2 0 0.075 -1.571 0 -1.871 base_link front_realsense 10"/>
+</group>
+
+  <group ns="back">
+    <include
+        file="$(find realsense_gazebo_plugin)/launch/depth_proc.launch" name="back_depth_proc" />
+    <node pkg="tf" type="static_transform_publisher" name="back_realsense_tf" args="-0.2 0 0.075 1.571 0 -2.071 base_link back_realsense 10"/>
+</group>
+
+  <node
+    name="pathfinder_sim_localization_node"
+    pkg="pathfinder_control"
+    type="pathfinder_sim_localization_node" />
+
+  <include file="$(find pathfinder_control)/launch/control_sim.launch" />
+</launch>

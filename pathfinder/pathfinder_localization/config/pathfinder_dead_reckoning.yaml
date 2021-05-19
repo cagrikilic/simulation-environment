@@ -1,0 +1,11 @@
+loop_rate : 10.0
+wheel_diameter : 0.22
+encoder_counts_per_revolution : 133460.0
+left_roboteq_topic_name : "roboteq/drivemotorin/left"
+right_roboteq_topic_name : "roboteq/drivemotorin/right"
+imu_topic_name : "imu/data"
+odometry_out_topic_name : "dead_reckoning/odometry"
+joint_state_out_topic_name : "dead_reckoning/joint_states"
+odometry_frame_id : "odom"
+odometry_child_frame_id : "base_link"
+joint_state_frame_id : "base_link"

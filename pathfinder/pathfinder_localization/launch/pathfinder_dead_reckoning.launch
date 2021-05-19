@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+  3   Software License Agreement (BSD)
+  4 
+  5   Copyright (c) 2019, WVU Interactive Robotics Laboratory
+  6                         https://web.statler.wvu.edu/~irl/
+  7   All rights reserved.
+  8 
+  9   Redistribution and use in source and binary forms, with or without
+ 10   modification, are permitted provided that the following conditions are met:
+ 11 
+ 12       * Redistributions of source code must retain the above copyright
+ 13         notice, this list of conditions and the following disclaimer.
+ 14       * Redistributions in binary form must reproduce the above copyright
+ 15         notice, this list of conditions and the following disclaimer in the
+ 16         documentation and/or other materials provided with the distribution.
+ 17       * Neither the name of the WVU Interactive Robotics Laboratory nor the names
+ 18         of its contributors may be used to endorse or promote products derived
+ 19         from this software without specific prior written permission.
+ 20 
+ 21   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ 22   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ 23   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ 24   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ 25   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ 26   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ 27   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ 28   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ 29   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ 30   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ 31   POSSIBILITY OF SUCH DAMAGE.
+ 32 -->
+<launch>
+  <node name="pathfinder_dead_reckoning_node" pkg="pathfinder_localization" type="pathfinder_dead_reckoning_node" output="screen">
+    <rosparam
+      command="load"
+      file="$(find pathfinder_localization)/config/pathfinder_dead_reckoning.yaml"
+      subst_value="true"
+    />
+  </node>
+</launch>

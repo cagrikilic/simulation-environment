@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>pathfinder_navigation</name>
+  <version>0.0.0</version>
+  <description>Autonomous path planning and motion controller for Pathfinder</description>
+
+  <maintainer email="irlwvu@gmail.com">WVU Interactive Robotics Laboratory</maintainer>
+  <author>Nicholas Ohi/nohi@mix.wvu.edu</author>
+  <url>https://github.com/wvu-irl/fast-traverse-pathfinder</url>
+  <url>https://web.statler.wvu.edu/~irl/</url>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>amcl</run_depend>
+  <run_depend>frontier_exploration</run_depend>
+  <run_depend>gmapping</run_depend>
+  <run_depend>map_server</run_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>navfn</run_depend>
+  <run_depend>base_local_planner</run_depend>
+  <run_depend>dwa_local_planner</run_depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot name="pathfinder" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find pathfinder_description)/urdf/materials.xacro" />
+    <xacro:include filename="$(find pathfinder_description)/urdf/skid_steer.gazebo" />
+    <xacro:include filename="$(find pathfinder_description)/urdf/macro.xacro" />
+
+    <gazebo>
+      <!-- <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+          <robotNamespace>/pathfinder</robotNamespace>
+      </plugin> -->
+    	<plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+       	    <alwaysOn>true</alwaysOn>
+            <updateRate>100.0</updateRate>
+            <bodyName>base_link</bodyName>
+            <topicName>odom</topicName>
+            <gaussianNoise>0.0</gaussianNoise>
+            <frameName>odom</frameName>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+    </gazebo>
+
+    <link name="base_link">
+      <!--pose>0 0 0.1 0 0 0</pose-->
+      <inertial>
+          <mass value="10"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      </inertial>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+              <box size="0.15 0.40 0.15"/>
+          </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://pathfinder_description/meshes/base_link2.dae" />
+              <!--box size= "0.40 0.15 0.15"/-->
+          </geometry>
+      </visual>
+  </link>
+
+        <!-- Rockers-->
+        <xacro:left_link_rocker name="left_rocker" />
+        <xacro:left_joint_rocker name="base_to_left_rocker" child="left_rocker" origin_xyz="0 0.11 0" />
+
+        <xacro:right_link_rocker name="right_rocker" />
+        <xacro:right_joint_rocker name="base_to_right_rocker" child="right_rocker" origin_xyz="0 -0.11 0" />
+
+        <!-- bar-->
+        <xacro:link_diff_bar name="diff_bar" />
+        <xacro:joint_diff_bar name="base_to_diff_bar" child="diff_bar" origin_xyz="0.183 0 0.10744" />
+
+        <!-- rods-->
+        <!--Right rod-->
+        <xacro:link_rod name="right_rod" />
+        <xacro:joint_rod name="bar_to_right_rod" child="right_rod" origin_xyz="0 0.135 0.0" />
+        <xacro:link_bottom_rod name="bottom_right_rod" />
+        <xacro:joint_right_bottom_rod name="rocker_to_right_rod" child="bottom_right_rod" origin_xyz="0.183 -0.025 -0.03" />
+        <!--xacro:joint_rod2 name="right_rocker_to_right_rod" child="right_rod" origin_xyz="0 0.135 -0.06732" /-->
+
+        <!--Left rod-->
+        <xacro:link_rod name="left_rod" />
+        <xacro:joint_rod name="bar_to_left_rod" child="left_rod" origin_xyz="0 -0.135 0.0" />
+        <xacro:link_bottom_rod name="bottom_left_rod" />
+        <xacro:joint_left_bottom_rod name="rocker_to_left_rod" child="bottom_left_rod" origin_xyz="0.183 0.025 -0.03" />
+        <!--xacro:joint_rod3 name="left_rocker_to_left_rod" child="left_rod" origin_xyz="0 0.135 -0.06732" /-->
+        <!--xacro:joint_left_rods name="rod_to_rod_left" child="left_rod"  origin_xyz="0 0 0.1" />
+        <xacro:joint_right_rods name="rod_to_rod_right" child="right_rod" origin_xyz="0 0 0.1" /-->
+
+        <!-- Wheels-->
+        <!-- Front left Wheel Link-->
+        <xacro:left_link_wheel name="front_left_wheel" />
+        <xacro:left_joint_wheel name="base_to_front_left" child="front_left_wheel" origin_xyz="0.203 0.16 -0.06" />
+
+
+        <!-- Front right Wheel Link-->
+        <xacro:right_link_wheel name="front_right_wheel" />
+        <xacro:right_joint_wheel name="base_to_front_right" child="front_right_wheel" origin_xyz="0.203 -0.16 -0.06" />
+
+        <!-- Back left Wheel Link-->
+        <xacro:left_link_wheel name="back_left_wheel" />
+        <xacro:left_joint_wheel name="base_to_back_left" child="back_left_wheel" origin_xyz="-0.203 0.16 -0.06" />
+        <!-- Back right Wheel Link-->
+        <xacro:right_link_wheel name="back_right_wheel" />
+        <xacro:right_joint_wheel name="base_to_back_right" child="back_right_wheel" origin_xyz="-0.203 -0.16 -0.06" />
+
+
+        <!-- sensors-->
+        <!--xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense-RS200.macro.xacro" ns="front"/>
+        <xacro:front.realsense-rs200
+        prefix="front"
+        parent="base_link">
+        <origin
+            xyz="0.16 0 0.23"
+            rpy="0 0.45 0" />
+        <cameraPrefix>front</cameraPrefix>
+        </xacro:front.realsense-rs200>
+        <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense-RS200.macro.xacro" ns="back"/>
+        <xacro:back.realsense-rs200
+            prefix="back"
+            parent="base_link">
+            <origin
+                xyz="-0.16 0 0.23"
+                rpy="0 0.5 3.14159" />
+            <cameraPrefix>back</cameraPrefix>
+        </xacro:back.realsense-rs200-->
+  </robot>
+    <!-- <xacro:realsense-rs200
+        prefix="back"
+        parent="base_link">
+        <origin
+            xyz="-0.2 0 0.075"
+            rpy="0 0.5 3.14159" />
+    </xacro:realsense-rs200> -->

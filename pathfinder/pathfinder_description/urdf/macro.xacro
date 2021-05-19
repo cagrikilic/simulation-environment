@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="left_link_wheel" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/wheel.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="-1.571 0 0"/>
+              <material name="blue"/>
+          </visual>
+          <inertial>
+              <mass value="2"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="-1.571 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.12" radius="0.12"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="-1.571 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="right_link_wheel" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/wheel.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="1.571 0 0"/>
+              <material name="blue"/>
+          </visual>
+          <inertial>
+              <mass value="2"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="1.571 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.12" radius="0.12"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="1.571 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="left_joint_wheel" params="name child origin_xyz">
+      <joint name="${name}" type="continuous">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="left_rocker"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+    <xacro:macro name="right_joint_wheel" params="name child origin_xyz">
+      <joint name="${name}" type="continuous">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="right_rocker"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+
+    <xacro:macro name="left_link_rocker" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/left_rocker_centered.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </visual>
+          <inertial>
+              <mass value="2"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.3" radius="0.1"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+    <gazebo reference="left_rocker">
+      <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    <gazebo reference="right_rocker">
+      <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    <xacro:macro name="left_joint_rocker" params="name child origin_xyz">
+      <joint name="${name}" type="revolute">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="base_link"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit lower="-0.28" upper="0.28" effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+
+    <xacro:macro name="right_link_rocker" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/right_rocker_centered.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </visual>
+          <inertial>
+              <mass value="2"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.3" radius="0.1"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="right_joint_rocker" params="name child origin_xyz">
+      <joint name="${name}" type="revolute">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="base_link"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit lower="-0.28" upper="0.28" effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+
+
+
+    <xacro:macro name="link_diff_bar" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/diff_bar_link.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </visual>
+          <inertial>
+              <mass value="0.01"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.1" radius="0.1"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="joint_diff_bar" params="name child origin_xyz">
+      <joint name="${name}" type="continuous">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="base_link"/>
+        <axis rpy="0 0 0" xyz="1 0 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="0.5"/>
+      </joint>
+    </xacro:macro>
+
+
+
+
+    <xacro:macro name="link_rod" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/diff_rod_upper.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 -1.571"/>
+          </visual>
+          <inertial>
+              <mass value="0.01"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.1" radius="0.1"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="joint_rod" params="name child origin_xyz">
+      <joint name="${name}" type="continuous">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="diff_bar"/>
+        <axis rpy="0 0 0" xyz="1 0 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+    <xacro:macro name="link_bottom_rod" params="name">
+        <link name="${name}">
+          <visual>
+              <geometry>
+                  <!--cylinder length="0.1" radius="0.1"/-->
+                  <mesh filename="package://pathfinder_description/meshes/diff_rod_bottom.dae" />
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 -1.571"/>
+          </visual>
+          <inertial>
+              <mass value="0.01"/>
+              <inertia ixx="0.6" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </inertial>
+          <collision>
+              <geometry>
+                  <cylinder length="0.1" radius="0.1"/>
+              </geometry>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+          </collision>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="joint_right_bottom_rod" params="name child origin_xyz">
+      <joint name="${name}" type="continuous">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="right_rocker"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+    <xacro:macro name="joint_left_bottom_rod" params="name child origin_xyz">
+      <joint name="${name}" type="continuous">
+        <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+        <child link="${child}"/>
+        <parent link="left_rocker"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+      </joint>
+    </xacro:macro>
+
+    <gazebo>
+      <joint name="leftone" type="fixed">
+        <pose>-0 0 0.03 0 0 0</pose>
+        <parent>left_rod</parent>
+        <child>bottom_right_rod</child>
+      </joint>
+    </gazebo>
+
+    <gazebo>
+      <joint name="rightone" type="fixed">
+        <pose>-0 0 0.03 0 0 0</pose>
+        <parent>right_rod</parent>
+        <child>bottom_left_rod</child>
+      </joint>
+    </gazebo>
+
+
+</robot>
