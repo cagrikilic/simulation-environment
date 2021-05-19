@@ -1,0 +1,30 @@
+# Input topics handled/muxed.
+# For each topic:
+# - name    : name identifier to select the topic
+# - topic   : input topic of geometry_msgs::Twist or four_wheel_steering_msgs::FourWheelSteering type
+# - timeout : timeout in seconds to start discarding old messages, and use 0.0 speed instead
+# - priority: priority in the range [0, 255]; the higher the more priority over other topics
+
+topics_vel:
+-
+  name    : navigation
+  topic   : nav_vel
+  timeout : 0.5
+  priority: 10
+-
+  name    : joystick_vel
+  topic   : joy_teleop/cmd_vel
+  timeout : 0.5
+  priority: 100
+-
+  name    : keyboard
+  topic   : key_vel
+  timeout : 0.5
+  priority: 90
+
+topics_4ws:
+-
+  name    : joystick_4ws
+  topic   : joy_teleop/cmd_four_wheel_steering
+  timeout : 0.5
+  priority: 110

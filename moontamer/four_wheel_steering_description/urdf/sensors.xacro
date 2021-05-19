@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<robot name="sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="laser_enabled" default="false" />
+  <xacro:arg name="camera_enabled" default="false" />
+  <xacro:arg name="navsat_enabled" default="false" />
+  <xacro:arg name="velodyne_enabled" default="false" />
+
+  <!-- LIDAR Properties -->
+  <xacro:property name="lidar_ground_clearance" value="0.69" />
+  <xacro:property name="lidar_x_offset" value="1.2" />
+
+  <xacro:macro name="sensors">
+
+    <xacro:if value="$(arg laser_enabled)">
+      <xacro:include filename="$(find lms1xx)/urdf/sick_lms1xx.urdf.xacro"/>
+      <xacro:sick_lms1xx />
+      <joint name="laser_joint" type="fixed">
+        <origin xyz="${lidar_x_offset} 0.0 ${lidar_ground_clearance - base_z_size/2 - ground_clearance}" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="laser" />
+      </joint>
+    </xacro:if>
+
+    <xacro:if value="$(arg camera_enabled)">
+      <link name="camera_link"/>
+      <joint name="camera_joint" type="fixed">
+        <origin xyz="0.35 0 0.41" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="camera_link" />
+      </joint>
+    </xacro:if>
+
+    <xacro:if value="$(arg navsat_enabled)">
+      <link name="navsat_link">
+        <inertial>
+          <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+          <mass value="0.015" />  <!-- [kg] -->
+          <origin xyz="0 0 0" rpy="0 0 0" />
+        </inertial>
+      </link>
+      <joint name="navsat_joint" type="revolute">
+        <origin xyz="${-wheelbase/2} 0 0.3" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="navsat_link" />
+        <limit upper="0" lower="0" effort="0" velocity="0" />
+      </joint>
+      <!--<joint name="navsat_joint" type="fixed">
+        <origin xyz="${-wheelbase/2} 0 0.3" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="navsat_link" />
+      </joint>-->
+      <gazebo>
+        <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+          <updateRate>10</updateRate>
+          <bodyName>navsat_link</bodyName>
+          <frameId>navsat_link</frameId>
+          <topicName>navsat/fix</topicName>
+          <velocityTopicName>navsat/vel_simul</velocityTopicName>
+          <referenceLatitude>45.76327</referenceLatitude>
+          <referenceLongitude>3.1094</referenceLongitude>
+          <referenceHeading>90.0</referenceHeading>
+          <referenceAltitude>400</referenceAltitude>
+          <drift>0.05 0.05 0.05</drift>
+          <gaussianNoise>0.01 0.01 0.01</gaussianNoise>
+          <velocityDrift>0 0 0</velocityDrift>
+          <velocityGaussianNoise>0.01 0.01 0.01</velocityGaussianNoise>
+          <status>2</status> <!-- Gps rtk : NavSatStatus::STATUS_GBAS_FIX -->
+        </plugin>
+      </gazebo>
+    </xacro:if>
+
+    <xacro:if value="$(arg velodyne_enabled)">
+      <link name="velodyne"/>
+      <joint name="velodyne_joint" type="fixed">
+        <origin xyz="0.0 0.0 1.0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="velodyne" />
+      </joint>
+      <gazebo reference="velodyne">
+        <sensor type="ray" name="velodyne_sensor">
+          <pose>0.0 0.0 0.0 0.0 0 0</pose>
+          <visualize>false</visualize>
+          <update_rate>10</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>720</samples>
+                <min_angle>-3.13</min_angle>
+                <max_angle>3.14</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>32</samples>
+                <min_angle>-0.13</min_angle>
+                <max_angle>0.13</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.30</min>
+              <max>30.0</max>
+            </range>
+          </ray>
+          <plugin name="velodyne_controller" filename="libgazebo_ros_block_laser.so">
+            <topicName>scan_velodyne</topicName>
+            <updateRate>10</updateRate>
+            <frameName>/velodyne</frameName>
+            <alwaysOn>true</alwaysOn>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+
+    <!-- IMU Link is the standard mounting position for the IMU.-->
+    <link name="imu_link"/>
+    <joint name="imu_joint" type="fixed">
+      <origin xyz="0.35 0 0.1" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="imu_link" />
+    </joint>
+    <gazebo>
+      <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+        <updateRate>100.0</updateRate>
+        <bodyName>base_link</bodyName>
+        <topicName>imu/data</topicName>
+        <accelDrift>0.005 0.005 0.005</accelDrift>
+        <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+        <rateDrift>0.005 0.005 0.005 </rateDrift>
+        <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+        <headingDrift>0.005</headingDrift>
+        <headingGaussianNoise>0.005</headingGaussianNoise>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>

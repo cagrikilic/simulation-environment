@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="chassis">
+
+  <xacro:property name="M_PI" value="3.14159"/>
+  <xacro:include filename="$(find four_wheel_steering_description)/urdf/wheel_steered.xacro" />
+
+  <!-- Base Properties -->
+  <xacro:property name="mass_base" value="500" />
+  <xacro:property name="base_x_size" value="1.66000" />
+  <xacro:property name="base_y_size" value="0.60000" />
+  <xacro:property name="base_z_size" value="0.66000" />
+
+  <xacro:property name="wheelbase" value="1.2" />
+  <xacro:property name="track" value="1.1" />
+
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="ground_clearance" value="0.35" />
+  <xacro:property name="wheel_x_offset" value="0.0" />
+  <xacro:property name="wheel_y_offset" value="0.1" />
+
+  <xacro:macro name="chassis" params="*visual_chassis *visual_steering *visual_wheel">
+    <!-- Base footprint is on the ground under the robot -->
+    <link name="base_footprint"/>
+
+    <!--gazebo reference="base_link">
+      <material>Gazebo/Grey</material>
+    </gazebo-->
+    <!-- Base link is the center of the robot -->
+    <link name="base_link">
+      <xacro:insert_block name="visual_chassis"/>
+      <collision>
+        <geometry>
+          <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="base_footprint_joint" type="fixed">
+      <origin xyz="0 0 ${ground_clearance + base_z_size/2}" rpy="0 0 0" />
+      <child link="base_link" />
+      <parent link="base_footprint" />
+    </joint>
+
+    <!-- Interial link stores the robot's inertial information -->
+    <link name="inertial_link">
+      <inertial>
+        <mass value="${mass_base}" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="${mass_base/12.0 * (base_y_size*base_y_size + base_z_size*base_z_size)}" ixy="0" ixz="0"
+                 iyy="${mass_base/12.0 * (base_x_size*base_x_size + base_z_size*base_z_size)}" iyz="0"
+                 izz="${mass_base/12.0 * (base_y_size*base_y_size + base_x_size*base_x_size)}" />
+      </inertial>
+    </link>
+
+    <joint name="inertial_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="inertial_link" />
+    </joint>
+
+    <!-- Wheel macros -->
+    <xacro:wheel_steered wheel_prefix="front_left" parent_link="base_link" wheel_origin_y="${wheel_y_offset}"  left_right="-1">
+      <origin xyz="${wheelbase/2+wheel_x_offset} ${track/2-wheel_y_offset} ${-base_z_size/2 + wheel_radius - ground_clearance}" rpy="0 0 0" />
+      <xacro:insert_block name="visual_steering"/>
+      <xacro:insert_block name="visual_wheel"/>
+    </xacro:wheel_steered>
+    <xacro:wheel_steered wheel_prefix="front_right" parent_link="base_link" wheel_origin_y="${-wheel_y_offset}"  left_right="1">
+      <origin xyz="${wheelbase/2+wheel_x_offset} ${-track/2+wheel_y_offset} ${-base_z_size/2 + wheel_radius - ground_clearance}" rpy="0 0 0" />
+      <xacro:insert_block name="visual_steering"/>
+      <xacro:insert_block name="visual_wheel"/>
+    </xacro:wheel_steered>
+    <xacro:wheel_steered wheel_prefix="rear_left" parent_link="base_link" wheel_origin_y="${wheel_y_offset}"  left_right="-1">
+      <origin xyz="${-wheelbase/2+wheel_x_offset} ${track/2-wheel_y_offset} ${-base_z_size/2 + wheel_radius - ground_clearance}" rpy="0 0 0" />
+      <xacro:insert_block name="visual_steering"/>
+      <xacro:insert_block name="visual_wheel"/>
+    </xacro:wheel_steered>
+    <xacro:wheel_steered wheel_prefix="rear_right" parent_link="base_link" wheel_origin_y="${-wheel_y_offset}"  left_right="1">
+      <origin xyz="${-wheelbase/2+wheel_x_offset} ${-track/2+wheel_y_offset} ${-base_z_size/2 + wheel_radius - ground_clearance}" rpy="0 0 0" />
+      <xacro:insert_block name="visual_steering"/>
+      <xacro:insert_block name="visual_wheel"/>
+    </xacro:wheel_steered>
+
+    <!-- Gazebo plugin for ROS Control -->
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

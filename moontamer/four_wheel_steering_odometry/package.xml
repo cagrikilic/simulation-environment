@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>four_wheel_steering_odometry</name>
+
+  <version>1.0.0</version>
+
+  <description>
+    This package goal is to calculate odometer datas from the "joint_state" topic.
+  </description>
+
+  <maintainer email="vincent.rousseau@irstea.fr">Vincent Rousseau</maintainer>
+
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>TODO</license>
+
+  <author email="vianney.papot@irstea.fr">Vianney Papot</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>four_wheel_steering_msgs</depend>
+
+  <depend>sensor_msgs</depend>
+  <!-- Use test_depend for packages you need only for testing: -->
+  <!--   <test_depend>gtest</test_depend> -->
+
+</package>

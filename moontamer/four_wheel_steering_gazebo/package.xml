@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>four_wheel_steering_gazebo</name>
+  <version>0.1.0</version>
+  <description>moontamer Simulator bringup</description>
+
+  <author email="vincent.rousseau@irstea.fr">Vincent Rousseau</author>
+
+  <maintainer email="vincent.rousseau@irstea.fr">Vincent Rousseau</maintainer>
+
+  <license>BSD</license>
+
+  <!--<url type="website">http://ros.org/wiki/four_wheel_steering_gazebo</url>-->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>hector_gazebo_plugins</run_depend>
+  <run_depend>four_wheel_steering_description</run_depend>
+  <run_depend>four_wheel_steering_control</run_depend>
+
+  <export>
+  </export>
+</package>

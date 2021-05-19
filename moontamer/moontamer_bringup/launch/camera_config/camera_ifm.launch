@@ -1,0 +1,19 @@
+<launch>
+  <include file="$(find o3m151_driver)/launch/nodelet_manager.launch">
+    <arg name="frame_id" value="camera_link"/>
+    <!--<arg name="pcap" value="$(find o3m151_driver)/records/wall_4_5m000" />-->
+    <!--<arg name="pcap" value="$(find o3m151_driver)/records/wall_4_5m_obj_noise000" />-->
+  </include>
+
+  <!--<node name="o3m151_node" pkg="o3m151_driver" type="o3m151_node" output="screen">
+    <param name="frame_id" value="camera_link"/>
+  </node>-->
+
+  <node pkg="nodelet" type="nodelet" name="outlier_removal"
+        args="load pcl/StatisticalOutlierRemoval o3m151_nodelet_manager" >
+    <remap from="~input" to="o3m151_points" />
+    <remap from="~output" to="filtered_points" />
+    <param name="mean_k" value="9" />
+    <param name="stddev" value="0.8" />
+  </node>
+</launch>

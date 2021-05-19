@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="joy_dev" default="/dev/input/js1" />
+  <group ns="joy_teleop">
+
+    <node pkg="joy" type="joy_node" name="joy_node">
+      <param name="dev" value="$(arg joy_dev)" />
+    </node>
+
+    <rosparam command="load" file="$(find four_wheel_steering_teleop)/config/teleop.yaml" />
+    <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy"/>
+
+    <node pkg="four_wheel_steering_teleop" type="teleop_four_wheel_steering_joy.py" name="teleop_four_wheel_steering_joy"/>
+  </group>
+
+</launch>

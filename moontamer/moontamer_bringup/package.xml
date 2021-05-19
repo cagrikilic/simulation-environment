@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>moontamer_bringup</name>
+  <version>0.1.0</version>
+  <description>The moontamer_bringup package</description>
+
+  <author email="name@surname.com">Name Surname</author>
+
+  <maintainer email="name@surname.com">Name Surname</maintainer>
+
+  <license>GPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>joy</depend>
+  <depend>teleop_twist_joy</depend>
+  <depend>twist_mux</depend>
+  <depend>interactive_marker_twist_server</depend>
+  <depend>controller_manager</depend>
+  <depend>control_toolbox</depend>
+  <depend>joint_state_controller</depend>
+  <depend>diff_drive_controller</depend>
+  <depend>laser_proc</depend>
+  <depend>nmea_comms</depend>
+  <depend>nmea_navsat_driver</depend>
+  <depend>robot_localization</depend>
+
+</package>

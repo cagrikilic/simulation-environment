@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<robot name="moontamer" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="laser_enabled" default="false" />
+  <xacro:arg name="camera_enabled" default="false" />
+  <xacro:arg name="navsat_enabled" default="false" />
+  <xacro:arg name="velodyne_enabled" default="false" />
+
+  <xacro:include filename="$(find four_wheel_steering_description)/urdf/chassis.xacro" />
+  <xacro:include filename="$(find four_wheel_steering_description)/urdf/sensors.xacro" />
+
+  <!-- Base Properties -->
+  <xacro:property name="base_x_size" value="1.66000" />
+  <xacro:property name="base_y_size" value="0.60000" />
+  <xacro:property name="base_z_size" value="0.66000" />
+
+  <!--xacro:property name="wheelbase" value="1.22" /-->
+  <xacro:property name="wheelbase" value="1.5724" />
+  <xacro:property name="track" value="1.7680" />
+  <!--xacro:property name="track" value="1.23" /-->
+  <xacro:property name="mass_base" value="30" />
+
+  <!-- Wheel Properties -->
+  <xacro:property name="steering_link_mass" value="10" />
+  <xacro:property name="mass_wheel" value="1" />
+  <xacro:property name="wheel_length" value="0.15" />
+  <!--xacro:property name="wheel_radius" value="0.28" /-->
+  <xacro:property name="wheel_radius" value="0.3048" />
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="ground_clearance" value="0.19" />
+  <xacro:property name="wheel_x_offset" value="0.0" />
+  <xacro:property name="wheel_y_offset" value="0.1" />
+
+  <!-- LIDAR Properties -->
+  <xacro:property name="lidar_ground_clearance" value="0.69" />
+  <xacro:property name="lidar_x_offset" value="1.0" />
+
+  <xacro:macro name="moontamer">
+
+    <xacro:chassis>
+      <!-- visual chassis -->
+      <visual>
+        <origin xyz="0 0 ${-base_z_size/2}" rpy="0 0 ${M_PI/2.0}" />
+        <geometry>
+          <mesh filename="package://moontamer_description/meshes/chassis.dae"/>
+        </geometry>
+      </visual>
+      <!-- visual steering -->
+      <mesh filename="package://moontamer_description/meshes/wheel_steered.dae"/>
+      <!-- visual wheel -->
+      <mesh filename="package://moontamer_description/meshes/wheel.dae"/>
+    </xacro:chassis>
+    <xacro:sensors/>
+
+  </xacro:macro>
+  <xacro:moontamer />
+</robot>

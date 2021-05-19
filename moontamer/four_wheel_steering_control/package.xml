@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>four_wheel_steering_control</name>
+  <version>0.1.0</version>
+  <description>Four wheel steering controller configurations</description>
+
+  <author email="vincent.rousseau@irstea.fr">Vincent Rousseau</author>
+
+  <maintainer email="vincent.rousseau@irstea.fr">Vincent Rousseau</maintainer>
+
+  <license>GPLv3</license>
+
+  <!--<url type="website">http://ros.org/wiki/four_wheel_steering_control</url>-->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>four_wheel_steering_controller</depend>
+  <depend>joint_state_controller</depend>
+  <depend>joy</depend>
+  <depend>robot_localization</depend>
+  <depend>controller_manager</depend>
+  <depend>teleop_twist_joy</depend>
+  <depend>twist_mux</depend>
+  <depend>four_wheel_steering_teleop</depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="laser_enabled" default="false"/>
+  <arg name="camera_enabled" default="false"/>
+  <arg name="velodyne_enabled" default="false"/>
+  <arg name="robot_initial_pose" default="-y 0 -Y 0"/>
+  <arg name="urdf_path" default="$(find four_wheel_steering_description)/urdf/vehicle.urdf.xacro"/>
+
+  <include file="$(find four_wheel_steering_description)/launch/description.launch">
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="camera_enabled" value="$(arg camera_enabled)"/>
+    <arg name="velodyne_enabled" value="$(arg velodyne_enabled)"/>
+    <arg name="urdf_path" value="$(arg urdf_path)"/>
+  </include>
+
+  <!-- Spawn robot in gazebo -->
+  <node name="spawn_aroco_model" pkg="gazebo_ros" type="spawn_model"
+    args="$(arg robot_initial_pose) -unpause -urdf -x 25 -y -30 -z 0.1 -param robot_description -model mobile_base"/>
+
+  <include file="$(find four_wheel_steering_control)/launch/control_simpleloc.launch" />
+
+</launch>

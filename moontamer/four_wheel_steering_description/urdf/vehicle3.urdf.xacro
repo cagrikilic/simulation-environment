@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<robot name="vehicle" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="laser_enabled" default="false" />
+  <xacro:arg name="camera_enabled" default="false" />
+  <xacro:arg name="navsat_enabled" default="false" />
+  <xacro:arg name="velodyne_enabled" default="false" />
+
+  <xacro:include filename="$(find four_wheel_steering_description)/urdf/chassis.xacro" />
+  <xacro:include filename="$(find four_wheel_steering_description)/urdf/sensors.xacro" />
+
+  <!-- Base Properties -->
+  <xacro:property name="base_x_size" value="1.66000" />
+  <xacro:property name="base_y_size" value="0.60000" />
+  <xacro:property name="base_z_size" value="0.66000" />
+
+  <xacro:property name="wheelbase" value="2" />
+  <xacro:property name="track" value="1.1" />
+  <xacro:property name="mass_base" value="500" />
+
+  <!-- Wheel Properties -->
+  <xacro:property name="steering_link_mass" value="30" />
+  <xacro:property name="mass_wheel" value="5" />
+  <xacro:property name="wheel_length" value="0.2" />
+  <xacro:property name="wheel_radius" value="0.45" />
+
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="ground_clearance" value="0.35" />
+  <xacro:property name="wheel_x_offset" value="0.0" />
+  <xacro:property name="wheel_y_offset" value="0.1" />
+
+  <!-- LIDAR Properties -->
+  <xacro:property name="lidar_ground_clearance" value="0.69" />
+  <xacro:property name="lidar_x_offset" value="1.2" />
+
+  <xacro:macro name="vehicle">
+
+    <xacro:chassis>
+      <!-- visual chassis -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.6 0.6 0.6 1"/>
+        </material>
+      </visual>
+      <!-- visual steering -->
+      <box size="0.05 ${steering_link_y} 0.05"/>
+      <!-- visual wheel -->
+      <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+    </xacro:chassis>
+    <xacro:sensors/>
+
+  </xacro:macro>
+  <xacro:vehicle />
+</robot>

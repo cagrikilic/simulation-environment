@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <name>moontamer_gazebo</name>
+  <version>0.1.0</version>
+  <description>moontamer Simulator bringup</description>
+
+  <author email="name@surname.com">Name Surname</author>
+
+  <maintainer email="name@surname.com">Name Surname</maintainer>
+
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>hector_gazebo_plugins</run_depend>
+<!--  <run_depend>hector_gazebo_worlds</run_depend>-->
+  <run_depend>moontamer_description</run_depend>
+  <run_depend>moontamer_control</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rostopic</run_depend>
+
+  <export>
+  </export>
+</package>

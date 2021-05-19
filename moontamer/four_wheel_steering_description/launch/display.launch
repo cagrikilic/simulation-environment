@@ -1,0 +1,13 @@
+<launch>
+
+  <arg name="urdf_path" default="$(find four_wheel_steering_description)/urdf/vehicle.urdf.xacro"/>
+  <include file="$(find four_wheel_steering_description)/launch/description.launch">
+    <arg name="urdf_path" value="$(arg urdf_path)" />
+  </include>
+
+  <arg name="rvizconfig" default="$(find four_wheel_steering_description)/rviz/urdf.rviz" />
+  <param name="use_gui" value="true"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>

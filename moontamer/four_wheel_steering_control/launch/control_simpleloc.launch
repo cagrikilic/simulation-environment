@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<launch>
+
+  <rosparam command="load" file="$(find four_wheel_steering_control)/config/control_4ws.yaml" />
+  <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
+        args="vehicle_joint_publisher vehicle_controller --shutdown-timeout 3"/>
+
+  <!-- Publish a static tf transform between navsat_link and base_link for gazebo
+       linked to this problem : http://answers.ros.org/question/44732/gps-hector-gazebo/
+       BUT IF YOU CHANGE THE NAVAST_LINK POSITION IN URDF YOU NEED TO CHANGE IT HERE TOO ! -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="navsat_link_broadcaster" args="-0.61 0 0.3 0 0 0 1 base_link navsat_link" />
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_gps">
+    <rosparam command="load" file="$(find four_wheel_steering_control)/config/localization_gps.yaml" />
+    <remap from="odometry/filtered" to="/odometry/filtered_gps" />
+  </node>
+
+  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
+    <param name="wait_for_datum" value="true"/>
+    <rosparam param="datum">[45.762428, 3.109898, -1.5707963, map, base_footprint]</rosparam>
+    <param name="magnetic_declination_radians" value="0"/>
+    <param name="yaw_offset" value="1.5707963"/>
+    <param name="zero_altitude" value="false"/>
+    <param name="publish_filtered_gps" value="false"/>
+    <param name="broadcast_utm_transform" value="false"/>
+
+    <remap from="imu/data" to="/imu/data" />
+    <remap from="gps/fix" to="/navsat/fix" />
+    <remap from="odometry/filtered" to="/odometry/filtered_gps" />
+  </node>
+
+  <arg name="config_locks"  default="$(find cmd_mux)/config/cmd_mux_locks.yaml"/>
+  <arg name="config_topics" default="$(find cmd_mux)/config/cmd_mux_topics.yaml"/>
+  <remap from="cmd_vel_out" to="vehicle_controller/cmd_vel"/>
+  <remap from="cmd_4ws_out" to="vehicle_controller/cmd_four_wheel_steering"/>
+  <include file="$(find cmd_mux)/launch/cmd_mux.launch">
+    <arg name="config_locks"  value="$(arg config_locks)"/>
+    <arg name="config_topics" value="$(arg config_topics)"/>
+  </include>
+
+  <!--Teleop -->
+  <include file="$(find four_wheel_steering_teleop)/launch/teleop.launch" />
+</launch>

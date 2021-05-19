@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>moontamer_description</name>
+  <version>0.0.0</version>
+  <description>The moontamer_description package</description>
+
+  <maintainer email="name@surname.com">Name Surname</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="name@surname.com">Name Surname</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>urdf</depend>
+
+  <export>
+  </export>
+</package>

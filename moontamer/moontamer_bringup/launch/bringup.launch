@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="laser_enabled" default="false" />
+  <arg name="camera_enabled" default="false" />
+
+  <include file="$(find moontamer_base)/launch/base.launch">
+    <arg name="laser_enabled" value="$(arg laser_enabled)"/>
+    <arg name="camera_enabled" value="$(arg camera_enabled)"/>
+  </include>
+
+  <include if="$(arg laser_enabled)" file="$(find moontamer_bringup)/launch/laser_config/sick_tim571_2050101.launch"/>
+
+  <!--<include file="$(find moontamer_bringup)/launch/laser_config/velodyne.launch"/>-->
+
+  <include if="$(arg camera_enabled)" file="$(find moontamer_bringup)/launch/camera_config/camera.launch"/>
+
+  <!--<include file="$(find moontamer_bringup)/launch/imu_config/imu.launch"/>-->
+
+  <include file="$(find moontamer_bringup)/launch/navsat_config/navsat.launch"/>
+
+  <!--<include file="$(find moontamer_navigation)/launch/move_base_mapless_demo.launch"/>-->
+
+</launch>

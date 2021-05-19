@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="laser_enabled" default="false"/>
+  <arg name="camera_enabled" default="false"/>
+  <arg name="velodyne_enabled" default="false"/>
+  <arg name="robot_initial_pose" default="-y 0 -Y 0"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find moontamer_gazebo)/urdf/description.gazebo.xacro
+    laser_enabled:=$(arg laser_enabled)
+    camera_enabled:=$(arg camera_enabled)
+    velodyne_enabled:=$(arg velodyne_enabled)
+    " />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Spawn robot in gazebo -->
+  <node name="spawn_moontamer_model" pkg="gazebo_ros" type="spawn_model"
+    args="$(arg robot_initial_pose) -unpause -urdf -z 0.5 -param robot_description -model mobile_base"/>
+
+  <include file="$(find four_wheel_steering_control)/launch/control_simpleloc.launch"/>
+
+</launch>

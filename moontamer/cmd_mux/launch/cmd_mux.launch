@@ -1,0 +1,10 @@
+<launch>
+  <arg name="config_locks"  default="$(find cmd_mux)/config/cmd_mux_locks.yaml"/>
+  <arg name="config_topics" default="$(find cmd_mux)/config/cmd_mux_topics.yaml"/>
+
+  <node pkg="cmd_mux" type="cmd_mux" name="cmd_mux" output="screen">
+    <rosparam file="$(arg config_locks)"  command="load"/>
+    <rosparam file="$(arg config_topics)" command="load"/>
+  </node>
+</launch>
+

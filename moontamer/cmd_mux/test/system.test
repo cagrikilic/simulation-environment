@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="cmd_mux" type="cmd_mux" name="cmd_mux" output="screen">
+    <rosparam file="$(find cmd_mux)/test/system_config.yaml" command="load" />
+  </node>
+  <node pkg="rostopic" type="rostopic" name="emergency_255_false_publisher" args="pub -r 20 /lock_1 std_msgs/Bool 0" />
+  <test pkg="cmd_mux" type="system_blackbox.py" test-name="system_blackbox" />
+</launch>

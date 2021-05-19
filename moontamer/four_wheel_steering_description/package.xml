@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>four_wheel_steering_description</name>
+  <version>0.0.0</version>
+  <description>The four_wheel_steering_description package</description>
+
+  <maintainer email="vincent.rousseau@irstea.fr">Vincent Rousseau</maintainer>
+
+  <license>GPLv3</license>
+
+  <!-- <url type="website">http://wiki.ros.org/four_wheel_steering_description</url> -->
+
+  <author email="vincent.rousseau@irstea.fr">Vincent Rousseau</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>urdf</depend>
+  <depend>lms1xx</depend>
+
+  <export>
+  </export>
+</package>

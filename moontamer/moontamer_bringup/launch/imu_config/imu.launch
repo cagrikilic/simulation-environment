@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+  <group ns="imu">
+    <node pkg="xsens_driver" type="mtnode.py" name="xsens_driver" output="screen">
+      <param name="frame_id" value="imu_link"/>
+      <param name="frame_local" value="ENU"/>
+      <param name="frame_local_imu" value="ENU"/>
+      <param name="device" value="/dev/ttyUSB0"/>
+      <remap from="imu/data" to="data"/>
+    </node>
+    <node pkg="quat_to_euler" type="quat_2_euler.py" name="quat_to_euler" output="screen">
+      <remap from="imu/data" to="data"/>
+      <remap from="imu/euler" to="euler"/>
+      <remap from="imu/pose" to="pose"/>
+    </node>
+    <!--<include file="$(find xsens_driver)/launch/xsens_driver.launch">
+      <arg name="frame_id" value="imu_link"/>
+    </include>-->
+  </group>
+</launch>

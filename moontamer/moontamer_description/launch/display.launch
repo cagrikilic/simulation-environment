@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find four_wheel_steering_description)/launch/display.launch">
+    <arg name="urdf_path" value="$(find moontamer_description)/urdf/moontamer.urdf.xacro"/>
+  </include>
+</launch>

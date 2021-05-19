@@ -1,0 +1,7 @@
+<launch>
+  <group ns="camera">
+    <include file="$(find moontamer_bringup)/launch/camera_ifm.launch"/>
+
+    <!--<include file="$(find moontamer_bringup)/launch/camera_axis.launch"/>-->
+  </group>
+</launch>

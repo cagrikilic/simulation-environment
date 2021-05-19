@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cmd_mux</name>
+  <version>3.0.0</version>
+  <description>
+      Command multiplexer, which multiplex several twist and four_wheel_steering commands (topics)
+      and allows to priorize or disable them (locks).
+  </description>
+
+  <maintainer email="vincent.rousseau@irstea.fr">Vincent Rousseau</maintainer>
+
+  <author email="vincent.rousseau@irstea.fr">Vincent Rousseau</author>
+  <author email="efernandez@clearpathrobotics.com">Enrique Fernandez</author>
+  <author email="siegfried.gevatter@pal-robotics.com">Siegfried-A. Gevatter Pujals</author>
+
+  <license>CC BY-NC-SA 4.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>four_wheel_steering_msgs</depend>
+  <depend>diagnostic_updater</depend>
+
+  <!-- Tests -->
+  <build_depend>rostest</build_depend>
+  <test_depend>rospy</test_depend>
+  <test_depend>rostopic</test_depend>
+
+  <export>
+      <rosindex>
+          <tags>
+              <tag>control</tag>
+              <tag>twist</tag>
+              <tag>cmd_vel</tag>
+              <tag>multiplex</tag>
+              <tag>mux</tag>
+          </tags>
+      </rosindex>
+  </export>
+</package>
