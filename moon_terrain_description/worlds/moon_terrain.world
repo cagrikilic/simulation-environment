@@ -1,0 +1,184 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+
+    <!-- Lunar Gravity-->
+    <gravity>0 0 -1.622</gravity>
+
+  <!-- Light Source -->
+  <light type="directional" name="sun">
+    <cast_shadows>true</cast_shadows>
+    <pose>0 20 10 -1.2 0.3 0</pose>
+    <diffuse>0.8 0.8 0.8 1</diffuse>
+    <specular>0.2 0.2 0.2 1</specular>
+    <attenuation>
+      <range>1000</range>
+      <constant>0.9</constant>
+      <linear>0.01</linear>
+      <quadratic>0.001</quadratic>
+    </attenuation>
+    <direction>-0.5 0.1 -0.9</direction>
+  </light>
+
+    <include>
+      <uri>model://lunar_path</uri>
+      <cast_shadows>true</cast_shadows>
+      <name>lunar_path</name>
+      <pose>0 0 -1 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://pole</uri>
+      <cast_shadows>false</cast_shadows>
+      <name>pole1</name>
+      <pose>30 35 -9 0 0 0</pose>
+    </include>
+    <!--include>
+      <uri>model://pole</uri>
+      <cast_shadows>false</cast_shadows>
+      <name>pole2</name>
+      <pose>-30 -35 -1 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://pole</uri>
+      <cast_shadows>false</cast_shadows>
+      <name>pole3</name>
+      <pose>30 -35 -1 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://pole</uri>
+      <cast_shadows>false</cast_shadows>
+      <name>pole4</name>
+      <pose>-30 35 -1 0 0 0</pose>
+    </include-->
+
+<population name="pole_population1">
+      <model name="poles1">
+        <include>
+          <static>true</static>
+          <uri>model://pole</uri>
+	  <cast_shadows>false</cast_shadows>
+      </include>
+      </model>
+      <pose>0 35 -9 0 0 0</pose>
+      <box>
+        <size>60 1 0.01</size>
+      </box>
+      <model_count>12</model_count>
+      <distribution>
+        <type>linear-x</type>
+      </distribution>
+    </population>
+<population name="pole_population2">
+      <model name="poles2">
+        <include>
+          <static>true</static>
+          <uri>model://pole</uri>
+	  <cast_shadows>false</cast_shadows>
+      </include>
+      </model>
+      <pose>0 -35 -9 0 0 0</pose>
+      <box>
+        <size>60 1 0.01</size>
+      </box>
+      <model_count>12</model_count>
+      <distribution>
+        <type>linear-x</type>
+      </distribution>
+    </population>
+<population name="pole_population3">
+      <model name="poles3">
+        <include>
+          <static>true</static>
+          <uri>model://pole</uri>
+	  <cast_shadows>false</cast_shadows>
+      </include>
+      </model>
+      <pose>30 0 -9 0 0 0</pose>
+      <box>
+        <size>1 70 0.01</size>
+      </box>
+      <model_count>15</model_count>
+      <distribution>
+        <type>linear-y</type>
+      </distribution>
+    </population>
+<population name="pole_population4">
+      <model name="poles4">
+        <include>
+          <static>true</static>
+          <uri>model://pole</uri>
+	  <cast_shadows>false</cast_shadows>
+      </include>
+      </model>
+      <pose>-30 0 -9 0 0 0</pose>
+      <box>
+        <size>1 70 0.01</size>
+      </box>
+      <model_count>15</model_count>
+      <distribution>
+        <type>linear-y</type>
+      </distribution>
+    </population>
+<!-- Testing the automatic population of objects -->
+    <population name="cubesat_population1">
+      <model name="cubesat">
+        <include>
+          <static>false</static>
+          <uri>model://wood_cube_10cm</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>60 70 0.01</size>
+      </box>
+      <model_count>1</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+<!-- Testing the automatic population of objects -->
+    <population name="boulder_population1">
+      <model name="boulder1">
+        <include>
+          <static>false</static>
+          <uri>model://boulder_1</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>60 70 0.01</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+<!-- Testing the automatic population of objects -->
+    <population name="boulder_population2">
+      <model name="boulder2">
+        <include>
+          <static>false</static>
+          <uri>model://boulder_2</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>60 70 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+    <include>
+      <uri>model://lunar_lander</uri>
+      <name>lunar_lander</name>
+      <pose>20 -20 -1.1 0 0 0</pose>
+    </include>	
+
+  </world>
+</sdf>
