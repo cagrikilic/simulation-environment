@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+
+    <!-- Martian Gravity-->
+    <gravity>0 0 -3.711</gravity>
+
+  <!-- Light Source -->
+  <light type="directional" name="sun">
+    <cast_shadows>true</cast_shadows>
+    <pose>0 20 10 -1.2 0.3 0</pose>
+    <diffuse>0.8 0.8 0.8 1</diffuse>
+    <specular>0.2 0.2 0.2 1</specular>
+    <attenuation>
+      <range>1000</range>
+      <constant>0.9</constant>
+      <linear>0.01</linear>
+      <quadratic>0.001</quadratic>
+    </attenuation>
+    <direction>-0.5 0.1 -0.9</direction>
+  </light>
+
+    <include>
+      <uri>model://martian_path</uri>
+      <cast_shadows>true</cast_shadows>
+      <name>martian_path</name>
+      <pose>0 0 7 0 0 0</pose>
+    </include>
+
+
+    <!--include>
+      <uri>model://boulder_1</uri>
+      <name>boulder_1</name>
+      <pose>0 0 0.5 0 0 0</pose>
+    </include>	
+
+    <include>
+      <uri>model://boulder_2</uri>
+      <name>boulder_2</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include-->	
+
+<!-- Testing the automatic population of objects -->
+    <population name="cubesat_population1">
+      <model name="cubesat">
+        <include>
+          <static>false</static>
+          <uri>model://wood_cube_10cm</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>60 70 0.01</size>
+      </box>
+      <model_count>1</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+    <!-- Testing the automatic population of objects -->
+    <!--population name="box_population1">
+      <model name="box1">
+        <include>
+          <static>false</static>
+          <uri>model://cube_20k</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>60 70 0.01</size>
+      </box>
+      <model_count>5</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population-->
+
+<!-- Testing the automatic population of objects -->
+    <population name="boulder_population1">
+      <model name="boulder1">
+        <include>
+          <static>false</static>
+          <uri>model://boulder_1</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>120 8 0.01</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+<!-- Testing the automatic population of objects -->
+    <population name="boulder_population2">
+      <model name="boulder2">
+        <include>
+          <static>false</static>
+          <uri>model://boulder_2</uri>
+        </include>
+      </model>
+      <pose>0 0 0 0 0 0</pose>
+      <box>
+        <size>120 10 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+  </world>
+</sdf>
