@@ -2,7 +2,7 @@
 Implementation of a simulation API for Mars and Moon terrain with a skid steering (Pathfinder) and 4WS (Moontamer) rover
 
 <p align="center">
-<img alt="moontamer" src="doc/rovers.png" width="600">
+<img alt="moontamer" src="doc/rovers.PNG" width="600">
 </p>
 
 
